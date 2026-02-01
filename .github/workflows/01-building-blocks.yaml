@@ -13,16 +13,14 @@ jobs:
     steps:
       - name: Say Hello World
         run: echo "Hello, World!"
-        echo-failed:
-    runs-on: ubuntu-latest
-    steps:
-      - name: Failed Step
-        run: echo "This step is designed to fail." && exit 1
   echo-goodbye:
     runs-on: ubuntu-latest
     steps:
+      - name: Failed Step
+        run: echo "This will Failed." && exit 1
+   
       - name: Say Goodbye World
-        run: echo "Goodbye, World!"
+        run: echo "Goodbye, World!" 
   echo-status:
     runs-on: ubuntu-latest
     steps:
