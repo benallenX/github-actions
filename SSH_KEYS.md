@@ -17,14 +17,14 @@ This project includes SSH keys for secure authentication and deployment purposes
 ### Adding the Public Key to a Server
 To allow this project to authenticate with a remote server:
 
-1. Copy the public key:
+1. **Recommended method using ssh-copy-id:**
    ```bash
-   cat .ssh/id_ed25519.pub
+   ssh-copy-id -i .ssh/id_ed25519.pub user@remote-server
    ```
 
-2. Add it to the remote server's `~/.ssh/authorized_keys` file:
+2. **Manual method:**
    ```bash
-   ssh user@remote-server "echo '$(cat .ssh/id_ed25519.pub)' >> ~/.ssh/authorized_keys"
+   cat .ssh/id_ed25519.pub | ssh user@remote-server "mkdir -p ~/.ssh && chmod 700 ~/.ssh && cat >> ~/.ssh/authorized_keys && chmod 600 ~/.ssh/authorized_keys"
    ```
 
 ### Adding the Public Key to GitHub
@@ -43,12 +43,23 @@ To use the SSH key in GitHub Actions workflows:
    - Create a new secret (e.g., `SSH_PRIVATE_KEY`)
    - Paste the content of `.ssh/id_ed25519`
 
-2. Use in your workflow:
+2. **Recommended: Use a secure SSH action:**
    ```yaml
    - name: Setup SSH
+     uses: webfactory/ssh-agent@v0.9.0
+     with:
+       ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY }}
+   ```
+
+3. **Alternative manual setup (less secure):**
+   ```yaml
+   - name: Setup SSH
+     env:
+       SSH_PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
      run: |
        mkdir -p ~/.ssh
-       echo "${{ secrets.SSH_PRIVATE_KEY }}" > ~/.ssh/id_ed25519
+       chmod 700 ~/.ssh
+       echo "$SSH_PRIVATE_KEY" > ~/.ssh/id_ed25519
        chmod 600 ~/.ssh/id_ed25519
        ssh-keyscan github.com >> ~/.ssh/known_hosts
    ```
