@@ -1,0 +1,35 @@
+name: GH200 - Triggers Lab
+
+on:
+  push:
+    branches: ["main"]
+  pull_request:
+    branches: ["main"]
+  workflow_dispatch:
+    inputs:
+      run_tests:
+        description: "Run tests step?"
+        required: true
+        default: "true"
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Show event context
+        run: |
+          echo "Event name: ${{ github.event_name }}"
+          echo "Actor: ${{ github.actor }}"
+          echo "Ref: ${{ github.ref }}"
+          echo "SHA: ${{ github.sha }}"
+
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Conditional step (manual input)
+        if: ${{ github.event_name == 'workflow_dispatch' && inputs.run_tests == 'true' }}
+        run: echo "Pretend we are running tests ✅"
+
+      - name: Always run
+        run: echo "Workflow completed ✅"
