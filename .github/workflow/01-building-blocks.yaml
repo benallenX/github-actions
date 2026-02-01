@@ -1,0 +1,29 @@
+name: 01-Building Blocks Workflow
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+jobs:
+  echo-hello:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Say Hello World
+        run: echo "Hello, World!"
+        echo-failed:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Failed Step
+        run: echo "This step is designed to fail." && exit 1
+  echo-goodbye:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Say Goodbye World
+        run: echo "Goodbye, World!"
+  echo-status:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Show Status Message
+        run: echo "This is a status message."
