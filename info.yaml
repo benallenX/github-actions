@@ -1,0 +1,34 @@
+description: "A documentation comment request without any code selection provided"
+
+author: "Ben Allen"
+version: "1.0.0"
+created_date: "2024-01-15"
+last_modified: "2024-01-15"
+tags:
+  - documentation
+  - yaml
+  - example
+status: "draft"
+priority: "medium"
+metadata:
+  project_name: "GitHub Actions Documentation"
+  repository: "github-actions"
+  file_type: "yaml"
+  encoding: "UTF-8"
+related_files:
+  - path: "/workflows/main.yml"
+    description: "Main workflow file"
+  - path: "/docs/README.md"
+    description: "Project documentation"
+examples:
+  - name: "Basic usage"
+    description: "Simple YAML structure example"
+    code: |
+      key: value
+      nested:
+        item: data
+contact:
+  email: "benjaminaallenjr@gmail.com"
+  team: "DevOps"
+license: "MIT"
+note: "No code was included in the selection to document. Please provide the code you would like documented."
