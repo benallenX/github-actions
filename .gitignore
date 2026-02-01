@@ -1,0 +1,8 @@
+# SSH Private Keys
+.ssh/id_ed25519
+.ssh/id_rsa
+.ssh/*_rsa
+.ssh/*_ed25519
+
+# Allow public keys
+!.ssh/*.pub
