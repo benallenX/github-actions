@@ -1,0 +1,31 @@
+#03 -Workflow Runners.yaml
+name: 03-Workflow Runners Lab
+on:
+  workflow_dispatch:
+    inputs:
+      runner-type:
+        description: "Type of runner to use (ubuntu, windows, macos)"
+        required: true
+        default: "ubuntu"
+  schedule:
+    - cron: '0 12 * * 1'  # Runs every Monday at noon UTC
+jobs:
+  choose-runner:
+    runs-on: ${{ inputs.runner-type == 'ubuntu' && 'ubuntu-latest' || inputs.runner-type == 'windows' && 'windows-latest' || inputs.runner-type == 'macos' && 'macos-latest' }}
+    steps:
+      - name: Display Runner Information
+        run: |
+          echo "Using runner type: ${{ inputs.runner-type }}"
+          echo "Runner OS: $RUNNER_OS"
+          echo "Runner Name: $RUNNER_NAME"
+          echo "Runner Version: $RUNNER_VERSION"
+  event-info:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Display Event Information
+        run: |
+          echo "Event Name: ${{ github.event_name }}"
+          echo "Repository: ${{ github.repository }}"
+          echo "Actor: ${{ github.actor }}"
+          echo "Ref: ${{ github.ref }}"
+          echo "SHA: ${{ github.sha }}"
