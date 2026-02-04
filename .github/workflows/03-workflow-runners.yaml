@@ -16,9 +16,17 @@ jobs:
       - name: Display Runner Information
         run: |
           echo "Using runner type: ${{ inputs.runner-type }}"
-          echo "Runner OS: $RUNNER_OS"
-          echo "Runner Name: $RUNNER_NAME"
-          echo "Runner Version: $RUNNER_VERSION"
+            echo "Runner OS: $RUNNER_OS"
+            echo "Runner Name: $RUNNER_NAME"
+            echo "Runner Version: $RUNNER_VERSION"
+    windows-echo:
+      runs-on: windows-latest
+      steps:
+        - name: Display Windows Specific Info
+          shell: bash
+          run: |
+            echo "This is a Windows runner."
+            echo "Runner OS: $RUNNER_OS"
   event-info:
     runs-on: ubuntu-latest
     steps:
