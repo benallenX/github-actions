@@ -1,0 +1,6 @@
+# SSH Private Keys - ignore all private keys but allow public keys
+.ssh/id_ed25519
+.ssh/id_rsa
+
+# Allow public keys
+!.ssh/*.pub
